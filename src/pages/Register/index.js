@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { Form, FloatingLabel } from "react-bootstrap";
 import ThemeProvider from 'react-bootstrap/ThemeProvider';
-import './index.css';
 import TextInputWithFloatLabel from '../../components/TextInputWithFloatLabel';
 import DButton from '../../components/Button';
 import DAlert from '../../components/Alert';
