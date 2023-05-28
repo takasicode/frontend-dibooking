@@ -1,4 +1,4 @@
-import logo from "../assets/logo.png";
+import logo from "../../assets/images/logo.png";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
