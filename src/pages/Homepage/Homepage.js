@@ -3,18 +3,21 @@ import Carousel from "react-bootstrap/Carousel";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { Card, Col, Row } from "react-bootstrap";
 import { FaStar, FaMapMarkerAlt } from "react-icons/fa";
-import sale from '.../assets/sale'
-import lpng from '.../assets/lpng'
-import bola from '.../assets/bola'
-import futsal from '.../assets/futsal'
-import bulutangkis from '.../assets/bulutangkis'
-import basket from '.../assets/basket'
-import voli from '.../assets/voli'
-import billiard from '.../assets/billiard'
+import sale from '../../assets/images/sale.png';
+import lpng from '../../assets/images/lpng.jpeg'
+import bola from '../../assets/images/bola.png'
+import futsal from '../../assets/images/futsal.png'
+import bulutangkis from '../../assets/images/bulutangkis.png'
+import basket from '../../assets/images/basket.png'
+import voli from '../../assets/images/voli.png'
+import billiard from '../../assets/images/billiard.png'
+import NavContainer from '../../components/Navbar/NavContainer'
+import Footer from "../../components/Footer/Footer";
 
 function HomePage() {
   return (
     <div>
+      <NavContainer/>
       <div
         className="d-flex flex-row mb-3 px-5 justify-content-end align-items-center"
         style={{ backgroundColor: "#2F2E41", height: "64px", color: "white" }}
@@ -475,6 +478,7 @@ function HomePage() {
           </Card>
         </div>
       </section>
+      <Footer/>
     </div>
   );
 }
