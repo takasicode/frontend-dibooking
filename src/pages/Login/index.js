@@ -1,16 +1,16 @@
-import React from 'react';
-import { Row, Col, Card, Image } from 'react-bootstrap';
-import '../Register/index.css';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { FcGoogle } from 'react-icons/fc';
+import React from "react";
+import { Row, Col, Card, Image } from "react-bootstrap";
+import "../Register/index.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { FcGoogle } from "react-icons/fc";
 import { Form, FloatingLabel } from "react-bootstrap";
-import ThemeProvider from 'react-bootstrap/ThemeProvider';
-import TextInputWithFloatLabel from '../../components/TextInputWithFloatLabel';
-import DButton from '../../components/Button';
-import DAlert from '../../components/Alert';
-import logo from '../../assets/icons/logo.png';
-import ilustrations from '../../assets/images/ilustrations.png';
+import ThemeProvider from "react-bootstrap/ThemeProvider";
+import TextInputWithFloatLabel from "../../components/TextInputWithFloatLabel";
+import DButton from "../../components/Button";
+import DAlert from "../../components/Alert";
+import logo from "../../assets/icons/logo.png";
+import ilustrations from "../../assets/images/ilustrations.png";
 
 function Login() {
   const navigate = useNavigate();
@@ -18,13 +18,13 @@ function Login() {
   const [form, setForm] = React.useState({
     email: "",
     password: "",
-    daftar_sebagai: ""
+    daftar_sebagai: "",
   });
 
   const [alert, setAlert] = React.useState({
     status: false,
     message: "",
-    type: ""
+    type: "",
   });
 
   const [loading, setLoading] = React.useState(false);
@@ -32,18 +32,17 @@ function Login() {
   const handleChange = (e) => {
     setForm({
       ...form,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Validasi form sebelum mengirim data
     if (!form.email) {
       setAlert({
         status: true,
         message: "Email harus diisi",
-        type: "danger"
+        type: "danger",
       });
       return;
     }
@@ -51,7 +50,7 @@ function Login() {
       setAlert({
         status: true,
         message: "Password harus diisi",
-        type: "danger"
+        type: "danger",
       });
       return;
     }
@@ -59,27 +58,37 @@ function Login() {
       setAlert({
         status: true,
         message: "Pilih jenis masuk",
-        type: "danger"
+        type: "danger",
       });
       return;
     }
 
-    // Jika form valid, lakukan proses submit
     setLoading(true);
-    // Permintaan HTTP menggunakan axios
-    axios.post('/api/login', form)
+    const data = {
+      email: form.email,
+      password: form.password,
+      status: form.daftar_sebagai,
+    };
+    axios
+      .post("http://localhost:8000/api/user/login", data)
       .then((response) => {
-        setLoading(false);
-        // Navigasi ke halaman lain setelah berhasil mendaftar
-        navigate("/home");
+        if (response.status === 200) {
+          localStorage.setItem("token", response.data.token);
+          console.log(response.data.token);
+        }
+        setAlert({
+          status: true,
+          message: "Login berhasil",
+          type: "success",
+        });
+        navigate("/");
       })
       .catch((error) => {
-        setLoading(false);
         // Handle respon dari backend jika login gagal
         setAlert({
           status: true,
           message: "Login gagal. Periksa kembali email dan password Anda",
-          type: "danger"
+          type: "danger",
         });
       });
   };
@@ -94,51 +103,85 @@ function Login() {
               <Card.Text>Silahkan masuk untuk lanjut ke website kami</Card.Text>
             </div>
             <Form className="p-5">
-              {alert.status && <DAlert message={alert.message} type={alert.type} />}
+              {alert.status && (
+                <DAlert message={alert.message} type={alert.type} />
+              )}
               <TextInputWithFloatLabel
                 label="Email"
-                name='email'
+                name="email"
                 value={form.email}
-                type='email'
-                placeholder='name@example.com'
+                type="email"
+                placeholder="name@example.com"
                 onChange={handleChange}
               />
               <TextInputWithFloatLabel
                 label="Password"
-                name='password'
+                name="password"
                 value={form.password}
-                type='password'
-                placeholder='Password'
+                type="password"
+                placeholder="Password"
                 onChange={handleChange}
               />
-              <FloatingLabel size="sm" controlId="floatingSelect" label="Masuk Sebagai" className="mb-3">
-                <Form.Select aria-label="Floating label select" name='daftar_sebagai' value={form.daftar_sebagai} onChange={handleChange}>
-                  <option >Buka menu pilih ini</option>
+              <FloatingLabel
+                size="sm"
+                controlId="floatingSelect"
+                label="Masuk Sebagai"
+                className="mb-3"
+              >
+                <Form.Select
+                  aria-label="Floating label select"
+                  name="daftar_sebagai"
+                  value={form.daftar_sebagai}
+                  onChange={handleChange}
+                >
+                  <option>Buka menu pilih ini</option>
                   <option value="Pemilik Lapangan ">Pemilik Lapangan</option>
                   <option value="Penyewa">Penyewa</option>
                 </Form.Select>
               </FloatingLabel>
               <Row className="mb-4">
                 <Col className="text-muted">
-                  Belum punya akun? <a href="#!" className="anchor">Masuk</a>
+                  Belum punya akun?{" "}
+                  <a href="/register" className="anchor">
+                    Register
+                  </a>
                 </Col>
                 <Col className="d-flex justify-content-end">
-                  <a href="#!" className="anchor">Lupa Password?</a>
+                  <a href="#!" className="anchor">
+                    Lupa Password?
+                  </a>
                 </Col>
               </Row>
-              <ThemeProvider prefixes={{ btn: 'btn-fill' }}>
-                <DButton loading={loading} disabled={loading} onClick={handleSubmit} variant="primary">Masuk</DButton>
+              <ThemeProvider prefixes={{ btn: "btn-fill" }}>
+                <DButton
+                  loading={loading}
+                  disabled={loading}
+                  onClick={handleSubmit}
+                  variant="primary"
+                >
+                  Masuk
+                </DButton>
               </ThemeProvider>
               <hr className="my-4" />
-              <ThemeProvider prefixes={{ btn: 'btn-outline' }}>
-                <DButton variant="primary"><FcGoogle className="me-2 mb-1" />Masuk dengan Google</DButton>
+              <ThemeProvider prefixes={{ btn: "btn-outline" }}>
+                <DButton variant="primary">
+                  <FcGoogle className="me-2 mb-1" />
+                  Masuk dengan Google
+                </DButton>
               </ThemeProvider>
             </Form>
           </Card.Body>
         </Col>
 
-        <Col lg="6" className="d-flex justify-content-center align-items-center right">
-          <Image src={ilustrations} className="image-right d-none d-lg-block p-3" alt="logo-register" />
+        <Col
+          lg="6"
+          className="d-flex justify-content-center align-items-center right"
+        >
+          <Image
+            src={ilustrations}
+            className="image-right d-none d-lg-block p-3"
+            alt="logo-register"
+          />
         </Col>
       </Row>
     </div>

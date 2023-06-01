@@ -4,8 +4,51 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 function NavContainer() {
+  const [loginUser, setLoginUser] = useState({
+    email: "",
+  });
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const token = localStorage.getItem("token");
+  const fetchUser = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8000/api/user/token`, {
+        headers: {
+          Authorization: `${token}`,
+        },
+      });
+      console.log(response);
+      setLoginUser(() => ({
+        email: response.data.token.email,
+      }));
+    } catch (error) {
+      // console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setLoggedIn(true);
+      fetchUser();
+    }
+  });
+
+  const logout = async () => {
+    try {
+      await axios.delete(`http://localhost:8000/api/user/logout`);
+      localStorage.removeItem("token");
+      setLoggedIn(false);
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
@@ -26,14 +69,37 @@ function NavContainer() {
             <Nav.Link href="#action2">Kategori</Nav.Link>
             <Nav.Link href="#action2">Tentang Kami</Nav.Link>
           </Nav>
-          <Form className="d-flex justify-content-center">
-            <Button className="mx-2" style={{backgroundColor: 'white', color: 'black'}}>
-              Masuk
-            </Button>
-            <Button className="mx-2" style= {{backgroundColor: '#FF7315'}}>
-              Search
-            </Button>
-          </Form>
+          {loggedIn === true ? (
+            <Form className="d-flex justify-content-center">
+              <Button className="mx-2" style={{ backgroundColor: "#FF7315" }}>
+                {loginUser.email}
+              </Button>
+              <Button
+                className="mx-2"
+                style={{ backgroundColor: "white", color: "black" }}
+                onClick={logout}
+              >
+                Keluar
+              </Button>
+            </Form>
+          ) : (
+            <Form className="d-flex justify-content-center">
+              <Button
+                className="mx-2"
+                style={{ backgroundColor: "white", color: "black" }}
+                href="/login"
+              >
+                Masuk
+              </Button>
+              <Button
+                className="mx-2"
+                style={{ backgroundColor: "#FF7315" }}
+                href="/register"
+              >
+                Daftar
+              </Button>
+            </Form>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>
