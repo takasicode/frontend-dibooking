@@ -1,10 +1,11 @@
 import React from 'react';
-import { Row, Col, Card, Image, Form, FloatingLabel } from 'react-bootstrap';
-import ThemeProvider from 'react-bootstrap/ThemeProvider';
+import { Row, Col, Card, Image } from 'react-bootstrap';
 import './index.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
+import { Form, FloatingLabel } from "react-bootstrap";
+import ThemeProvider from 'react-bootstrap/ThemeProvider';
 import TextInputWithFloatLabel from '../../components/TextInputWithFloatLabel';
 import DButton from '../../components/Button';
 import DAlert from '../../components/Alert';
@@ -15,18 +16,18 @@ function Register() {
   const navigate = useNavigate();
 
   const [form, setForm] = React.useState({
-    nama: '',
-    nomor_ponsel: '',
-    email: '',
-    password: '',
-    konfirmasi_password: '',
-    daftar_sebagai: ''
+    nama: "",
+    nomor_ponsel: "",
+    email: "",
+    password: "",
+    konfirmasi_password: "",
+    daftar_sebagai: "",
   });
 
   const [alert, setAlert] = React.useState({
     status: false,
-    message: '',
-    type: ''
+    message: "",
+    type: "",
   });
 
   const [loading, setLoading] = React.useState(false);
@@ -35,7 +36,7 @@ function Register() {
     const { name, value } = e.target;
     setForm((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -53,8 +54,8 @@ function Register() {
           setLoading(false);
           setAlert({
             status: true,
-            message: 'Server Internal Error.',
-            type: 'danger'
+            message: "Server Internal Error.",
+            type: "danger",
           });
         });
     }
@@ -62,17 +63,17 @@ function Register() {
 
   const validateForm = () => {
     if (
-      form.nama.trim() === '' ||
-      form.nomor_ponsel.trim() === '' ||
-      form.email.trim() === '' ||
-      form.password.trim() === '' ||
-      form.konfirmasi_password.trim() === '' ||
-      form.daftar_sebagai.trim() === ''
+      form.nama.trim() === "" ||
+      form.nomor_ponsel.trim() === "" ||
+      form.email.trim() === "" ||
+      form.password.trim() === "" ||
+      form.konfirmasi_password.trim() === "" ||
+      form.daftar_sebagai.trim() === ""
     ) {
       setAlert({
         status: true,
-        message: 'Harap isi semua field.',
-        type: 'danger'
+        message: "Harap isi semua field.",
+        type: "danger",
       });
       return false;
     }
@@ -80,16 +81,16 @@ function Register() {
     if (!emailRegex.test(form.email)) {
       setAlert({
         status: true,
-        message: 'Harap masukkan alamat Email yang valid.',
-        type: 'danger'
+        message: "Harap masukkan alamat Email yang valid.",
+        type: "danger",
       });
       return false;
     }
     if (form.password !== form.konfirmasi_password) {
       setAlert({
         status: true,
-        message: 'Password dan Konfirmasi Password harus sama.',
-        type: 'danger'
+        message: "Password dan Konfirmasi Password harus sama.",
+        type: "danger",
       });
       return false;
     }
@@ -107,70 +108,99 @@ function Register() {
               <Card.Text>Silahkan daftar akun terlebih dahulu</Card.Text>
             </div>
             <Form className="p-5">
-              {alert.status && <DAlert message={alert.message} type={alert.type} />}
+              {alert.status && (
+                <DAlert message={alert.message} type={alert.type} />
+              )}
               <TextInputWithFloatLabel
                 label="Nama Lengkap"
-                name='nama'
+                name="nama"
                 value={form.nama}
-                type='text'
-                placeholder='Jhon Wick'
+                type="text"
+                placeholder="Jhon Wick"
                 onChange={handleChange}
               />
               <TextInputWithFloatLabel
                 label="Nomor Ponsel"
-                name='nomor_ponsel'
+                name="nomor_ponsel"
                 value={form.nomor_ponsel}
-                type='number'
-                placeholder='081234567890'
+                type="number"
+                placeholder="081234567890"
                 onChange={handleChange}
               />
               <TextInputWithFloatLabel
                 label="Email"
-                name='email'
+                name="email"
                 value={form.email}
                 type='email'
-                placeholder='jhon@example.com'
+                placeholder='name@example.com'
                 onChange={handleChange}
               />
               <TextInputWithFloatLabel
                 label="Password"
-                name='password'
+                name="password"
                 value={form.password}
-                type='password'
-                placeholder='Password'
+                type="password"
+                placeholder="Password"
                 onChange={handleChange}
               />
               <TextInputWithFloatLabel
                 label="Konfirmasi Password"
-                name='konfirmasi_password'
+                name="konfirmasi_password"
                 value={form.konfirmasi_password}
-                type='password'
-                placeholder='Password Confirmation'
+                type="password"
+                placeholder="Password Confirmation"
                 onChange={handleChange}
               />
-              <FloatingLabel size="sm" controlId="floatingSelect" label="Daftar Sebagai" className="mb-3">
-                <Form.Select aria-label="Floating label select" name='daftar_sebagai' value={form.daftar_sebagai} onChange={handleChange}>
-                  <option >Buka menu pilih ini</option>
-                  <option value="Pemilik Lapangan ">Pemilik Lapangan</option>
+              <FloatingLabel
+                size="sm"
+                controlId="floatingSelect"
+                label="Daftar Sebagai"
+                className="mb-3"
+              >
+                <Form.Select
+                  aria-label="Floating label select"
+                  name="daftar_sebagai"
+                  value={form.daftar_sebagai}
+                  onChange={handleChange}
+                >
+                  <option>Buka menu pilih ini</option>
+                  <option value="Pemilik Lapangan">Pemilik Lapangan</option>
                   <option value="Penyewa">Penyewa</option>
                 </Form.Select>
               </FloatingLabel>
               <div className="text-muted mb-4">
-                Sudah punya akun? <a href="/login" className="anchor">Masuk</a>
+                Sudah punya akun? <a href="#!" className="anchor">Masuk</a>
               </div>
-              <ThemeProvider prefixes={{ btn: 'btn-fill' }}>
-                <DButton loading={loading} disabled={loading} onClick={handleSubmit} variant="primary">Daftar</DButton>
+              <ThemeProvider prefixes={{ btn: "btn-fill" }}>
+                <DButton
+                  loading={loading}
+                  disabled={loading}
+                  onClick={handleSubmit}
+                  variant="primary"
+                >
+                  Daftar
+                </DButton>
               </ThemeProvider>
               <hr className="my-4" />
-              <ThemeProvider prefixes={{ btn: 'btn-outline' }}>
-                <DButton variant="primary"><FcGoogle className="me-2 mb-1" />Daftar dengan Google</DButton>
+              <ThemeProvider prefixes={{ btn: "btn-outline" }}>
+                <DButton variant="primary">
+                  <FcGoogle className="me-2 mb-1" />
+                  Daftar dengan Google
+                </DButton>
               </ThemeProvider>
             </Form>
           </Card.Body>
         </Col>
 
-        <Col lg="6" className="d-flex justify-content-center align-items-center right">
-          <Image src={ilustrations} className="image-right d-none d-lg-block p-3" alt="logo-register" />
+        <Col
+          lg="6"
+          className="d-flex justify-content-center align-items-center right"
+        >
+          <Image
+            src={ilustrations}
+            className="image-right d-none d-lg-block p-3"
+            alt="logo-register"
+          />
         </Col>
       </Row>
     </div>
