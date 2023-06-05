@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { Navbar, Nav, Container, NavDropdown, ThemeProvider } from 'react-bootstrap';
+import { Navbar, Nav, Container, NavDropdown, Image } from 'react-bootstrap';
 import logo from '../../assets/icons/logo.png';
-import DButton from '../../components/Button';
-import './index.css';
 
-function DNavbar() {
+function DNavbarAccount() {
   const [selectedLocation, setSelectedLocation] = useState("Kota Semarang");
 
   const handleLocationChange = (eventKey) => {
@@ -29,11 +27,16 @@ function DNavbar() {
     "Tugu"
   ];
 
+  const user = {
+    name: "Muhammad Fadhil Abyansyah",
+    profile: require("../../assets/images/profile.jpeg")
+  };
+
   return (
     <Navbar bg="light" expand="lg" className="navbar-dibooking d-flex flex-column m-0 p-0">
       <Container className="d-flex flex-row align-items-center mb-2 mt-2">
         <Navbar.Brand href="#" className="d-flex align-items-center">
-          <img src={logo} className="logo_navbar" alt="logo" width="90" height="50" />
+          <Image src={logo} className="logo_navbar" alt="logo" width="90" height="50" />
           Dibooking
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -44,13 +47,24 @@ function DNavbar() {
             <Nav.Link href="#kategori">Kategori</Nav.Link>
             <Nav.Link href="/tentang-kami">Tentang Kami</Nav.Link>
           </Nav>
-          <Nav className="ms-lg-auto gap-4">
-            <ThemeProvider prefixes={{ btn: 'btn-outline' }}>
-              <DButton variant="primary">Masuk</DButton>
-            </ThemeProvider>
-            <ThemeProvider prefixes={{ btn: 'btn-fill' }}>
-              <DButton variant="primary">Daftar</DButton>
-            </ThemeProvider>
+          <Nav className="ms-lg-auto align-items-center">
+            <NavDropdown
+              align={{ xxxl: 'start' }}
+              title={
+                <span className="d-inline-flex align-items-center">
+                  <span className="me-3">{user.name}</span>
+                  <Image src={user.profile} height={"40px"} width={"40px"} roundedCircle />
+                </span>
+              }
+            >
+              <NavDropdown.Item href="/saldo">Rp 100.000</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="/detail-akun">Detail Akun</NavDropdown.Item>
+              <NavDropdown.Item href="/pemesanan">Pemesanan</NavDropdown.Item>
+              <NavDropdown.Item href="/riwayat-pemesanan">Riwayat Pemesanan</NavDropdown.Item>
+              <NavDropdown.Item href="/notifikasi">Notifikasi</NavDropdown.Item>
+              <NavDropdown.Item href="/">Logout</NavDropdown.Item>
+            </NavDropdown>
           </Nav>
         </Navbar.Collapse>
       </Container>
@@ -71,8 +85,8 @@ function DNavbar() {
           </NavDropdown>
         </Container>
       </div>
-    </Navbar>
+    </Navbar >
   );
 };
 
-export default DNavbar;
+export default DNavbarAccount;
