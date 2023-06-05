@@ -1,16 +1,16 @@
-import React from "react";
-import { Row, Col, Card, Image } from "react-bootstrap";
-import "../Register/index.css";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc";
+import React from 'react';
+import { Row, Col, Card, Image } from 'react-bootstrap';
+import '../Register/index.css';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { FcGoogle } from 'react-icons/fc';
 import { Form, FloatingLabel } from "react-bootstrap";
-import ThemeProvider from "react-bootstrap/ThemeProvider";
-import TextInputWithFloatLabel from "../../components/TextInputWithFloatLabel";
-import DButton from "../../components/Button";
-import DAlert from "../../components/Alert";
-import logo from "../../assets/icons/logo.png";
-import ilustrations from "../../assets/images/ilustrations.png";
+import ThemeProvider from 'react-bootstrap/ThemeProvider';
+import TextInputWithFloatLabel from '../../components/TextInputWithFloatLabel';
+import DButton from '../../components/Button';
+import DAlert from '../../components/Alert';
+import logo from '../../assets/icons/logo.png';
+import ilustrations from '../../assets/images/ilustrations.png';
 
 function Login() {
   const navigate = useNavigate();
@@ -64,27 +64,13 @@ function Login() {
     }
 
     setLoading(true);
-    const data = {
-      email: form.email,
-      password: form.password,
-      status: form.daftar_sebagai,
-    };
-    axios
-      .post("http://localhost:8000/api/user/login", data)
+    axios.post('/api/login', form)
       .then((response) => {
-        if (response.status === 200) {
-          localStorage.setItem("token", response.data.token);
-          console.log(response.data.token);
-        }
-        setAlert({
-          status: true,
-          message: "Login berhasil",
-          type: "success",
-        });
-        navigate("/");
+        setLoading(false);
+        navigate("/home");
       })
       .catch((error) => {
-        // Handle respon dari backend jika login gagal
+        setLoading(false);
         setAlert({
           status: true,
           message: "Login gagal. Periksa kembali email dan password Anda",
@@ -92,6 +78,7 @@ function Login() {
         });
       });
   };
+
   return (
     <div className="h-100">
       <Row className="w-100 g-0">
@@ -141,15 +128,10 @@ function Login() {
               </FloatingLabel>
               <Row className="mb-4">
                 <Col className="text-muted">
-                  Belum punya akun?{" "}
-                  <a href="/register" className="anchor">
-                    Register
-                  </a>
+                  Belum punya akun? <a href="#!" className="anchor">Masuk</a>
                 </Col>
                 <Col className="d-flex justify-content-end">
-                  <a href="#!" className="anchor">
-                    Lupa Password?
-                  </a>
+                  <a href="#!" className="anchor">Lupa Password?</a>
                 </Col>
               </Row>
               <ThemeProvider prefixes={{ btn: "btn-fill" }}>
