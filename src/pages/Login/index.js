@@ -1,11 +1,10 @@
 import React from 'react';
-import { Row, Col, Card, Image } from 'react-bootstrap';
+import { Row, Col, Card, Image, Form, FloatingLabel } from 'react-bootstrap';
+import ThemeProvider from 'react-bootstrap/ThemeProvider';
 import '../Register/index.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
-import { Form, FloatingLabel } from "react-bootstrap";
-import ThemeProvider from 'react-bootstrap/ThemeProvider';
 import TextInputWithFloatLabel from '../../components/TextInputWithFloatLabel';
 import DButton from '../../components/Button';
 import DAlert from '../../components/Alert';
@@ -38,7 +37,6 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Validasi form sebelum mengirim data
     if (!form.email) {
       setAlert({
         status: true,
@@ -64,18 +62,14 @@ function Login() {
       return;
     }
 
-    // Jika form valid, lakukan proses submit
     setLoading(true);
-    // Permintaan HTTP menggunakan axios
     axios.post('/api/login', form)
       .then((response) => {
         setLoading(false);
-        // Navigasi ke halaman lain setelah berhasil mendaftar
         navigate("/home");
       })
       .catch((error) => {
         setLoading(false);
-        // Handle respon dari backend jika login gagal
         setAlert({
           status: true,
           message: "Login gagal. Periksa kembali email dan password Anda",
@@ -120,10 +114,10 @@ function Login() {
               </FloatingLabel>
               <Row className="mb-4">
                 <Col className="text-muted">
-                  Belum punya akun? <a href="#!" className="anchor">Masuk</a>
+                  Belum punya akun? <a href="/register" className="anchor">Daftar</a>
                 </Col>
                 <Col className="d-flex justify-content-end">
-                  <a href="#!" className="anchor">Lupa Password?</a>
+                  <a href="/forgot-password" className="anchor">Lupa Password?</a>
                 </Col>
               </Row>
               <ThemeProvider prefixes={{ btn: 'btn-fill' }}>

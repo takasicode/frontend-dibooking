@@ -1,11 +1,10 @@
 import React from 'react';
-import { Row, Col, Card, Image } from 'react-bootstrap';
+import { Row, Col, Card, Image, Form, FloatingLabel } from 'react-bootstrap';
+import ThemeProvider from 'react-bootstrap/ThemeProvider';
 import './index.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
-import { Form, FloatingLabel } from "react-bootstrap";
-import ThemeProvider from 'react-bootstrap/ThemeProvider';
 import TextInputWithFloatLabel from '../../components/TextInputWithFloatLabel';
 import DButton from '../../components/Button';
 import DAlert from '../../components/Alert';
@@ -42,21 +41,16 @@ function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Validasi form di sini
     const isValid = validateForm();
     if (isValid) {
-      // Jika form valid, lakukan proses submit
       setLoading(true);
-      // Permintaan HTTP menggunakan axios
       axios.post('/api/register', form)
         .then((response) => {
           setLoading(false);
-          // Navigasi ke halaman lain setelah berhasil mendaftar
           navigate('/home');
         })
         .catch((error) => {
           setLoading(false);
-          // Handle Server Internal Error
           setAlert({
             status: true,
             message: 'Server Internal Error.',
@@ -67,8 +61,6 @@ function Register() {
   };
 
   const validateForm = () => {
-    // Validasi form di sini
-    // Cek apakah semua field telah diisi dengan benar
     if (
       form.nama.trim() === '' ||
       form.nomor_ponsel.trim() === '' ||
@@ -84,7 +76,6 @@ function Register() {
       });
       return false;
     }
-    // Cek apakah email valid
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(form.email)) {
       setAlert({
@@ -94,7 +85,6 @@ function Register() {
       });
       return false;
     }
-    // Cek apakah password dan konfirmasi password sama
     if (form.password !== form.konfirmasi_password) {
       setAlert({
         status: true,
@@ -103,9 +93,9 @@ function Register() {
       });
       return false;
     }
-    // Semua validasi berhasil, form valid
     return true;
   };
+
   return (
     <div className="h-100">
       <Row className="w-100 g-0">
@@ -139,7 +129,7 @@ function Register() {
                 name='email'
                 value={form.email}
                 type='email'
-                placeholder='name@example.com'
+                placeholder='jhon@example.com'
                 onChange={handleChange}
               />
               <TextInputWithFloatLabel
@@ -166,7 +156,7 @@ function Register() {
                 </Form.Select>
               </FloatingLabel>
               <div className="text-muted mb-4">
-                Sudah punya akun? <a href="#!" className="anchor">Masuk</a>
+                Sudah punya akun? <a href="/login" className="anchor">Masuk</a>
               </div>
               <ThemeProvider prefixes={{ btn: 'btn-fill' }}>
                 <DButton loading={loading} disabled={loading} onClick={handleSubmit} variant="primary">Daftar</DButton>
