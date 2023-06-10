@@ -8,6 +8,31 @@ import { CiCircleAlert } from "react-icons/ci";
 import Spinner from "react-bootstrap/Spinner";
 
 function PaymentDetails() {
+  const dataPenyewa = {
+    nama: "John Doe",
+    nomorTelepon: "082134554212",
+    alamat: "Jl. Suyono Ardianto, Perum. Jaya Wijaya Blok A No. 24, Jakarta Selatan"
+  };
+
+  const dataPemesanan = {
+    namaManajemen: "Jakselmania FC",
+    namaLapangan: "Lapangan Futsal Jakselmania",
+    tanggalPemesanan: "21-05-2023",
+    jamPemesanan: "19.00 - 20.00 WIB",
+    hargaSewa: "Rp 75.000/Jam",
+    totalPembayaran: "Rp 75.000"
+  };
+
+  const dataPembayaran = {
+    saldo: "Rp 50.000",
+    status: "Lunas",
+    metodePembayaran: "DibookingPay",
+    totalPembayaran: "Rp 75.000",
+    peringatan: "Mohon selesaikan pembayaran secepatnya."
+  };
+
+  const saldoMencukupi = true;
+
   const [isOutlineButtonHovered, setOutlineButtonHovered] = useState(false);
   const [isFillButtonHovered, setFillButtonHovered] = useState(false);
 
@@ -67,11 +92,9 @@ function PaymentDetails() {
               <BiUserCircle style={{ color: "#FF7315", marginRight: "5px", height: "25px", width: "25px" }} />
               Penyewa
             </p>
-            <p className="mb-0" style={{ fontWeight: "700" }}>John Doe</p>
-            <p className="mb-0" style={{ fontWeight: "700" }}>082134554212</p>
-            <p className="mb-0" style={{ color: "#666666" }}>
-              Jl. Suyono Ardianto, Perum. Jaya Wijaya Blok A No. 24, Jakarta Selatan
-            </p>
+            <p className="mb-0" style={{ fontWeight: "700" }}>{dataPenyewa.nama}</p>
+            <p className="mb-0" style={{ fontWeight: "700" }}>{dataPenyewa.nomorTelepon}</p>
+            <p className="mb-0" style={{ color: "#666666" }}>{dataPenyewa.alamat}</p>
           </div>
           <div className="mb-5">
             <p className="d-flex align-items-center mb-2" style={{ color: "#FF7315", fontWeight: "700" }}>
@@ -79,30 +102,21 @@ function PaymentDetails() {
               Lapangan Dipesan
             </p>
             <p className="mb-1">
-              <span style={{ fontWeight: "700" }}>Jakselmania FC</span> |{" "}
+              <span style={{ fontWeight: "700" }}>{dataPemesanan.namaManajemen}</span> |{" "}
               <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer" style={{ display: "inline", alignItems: "center", textDecoration: "none" }}>
                 <BiMessageDetail style={{ color: "#FF7315" }} />{" "}
-                <span style={{ color: "#FF7315", fontWeight: "600" }}>Chat Sekarang</span>
+                <span style={{ color: "#FF7315", fontWeight: "600" }}>Chat</span>
               </a>
             </p>
             <div className="mb-2" style={{ display: "flex", height: "fit-content", overflow: "hidden", margin: "auto", borderBottom: "1px solid black", paddingBottom: "10px" }}>
               <Image src={iconProfileBox} alt="Profile Box" style={{ height: "60px", width: "75px" }} />
               <div className="content" style={{ alignItems: "center" }}>
-                <p className="mb-1" style={{ marginLeft: "10px", fontWeight: "700", fontSize: "12px" }}>
-                  Lapangan Futsal Jakselmania
-                </p>
-                <p className="mb-0" style={{ marginLeft: "10px", color: "#666666", fontSize: "12px" }}>
-                  Waktu : 21-05-2023 | 08.00 - 09.00 WIB
-                </p>
-                <p className="mb-0" style={{ marginLeft: "10px", color: "#666666", fontSize: "12px" }}>
-                  Harga : Rp 75.000/Jam
-                </p>
+                <p className="mb-1" style={{ marginLeft: "10px", fontWeight: "700", fontSize: "12px" }}>{dataPemesanan.namaLapangan}</p>
+                <p className="mb-0" style={{ marginLeft: "10px", color: "#666666", fontSize: "12px" }}>Waktu : {dataPemesanan.tanggalPemesanan} | {dataPemesanan.jamPemesanan}</p>
+                <p className="mb-0" style={{ marginLeft: "10px", color: "#666666", fontSize: "12px" }}>Harga : {dataPemesanan.hargaSewa}</p>
               </div>
             </div>
-            <p className="d-flex justify-content-between align-content-center" style={{ fontWeight: "500" }}>
-              Total Harga{" "}
-              <span>Rp 75.000</span>
-            </p>
+            <p className="d-flex justify-content-between align-content-center" style={{ fontWeight: "500" }}>Total Harga{" "}<span>{dataPemesanan.totalPembayaran}</span></p>
           </div>
           <div className="mb-0">
             <p className="d-flex align-items-center mb-2" style={{ color: "#FF7315", fontWeight: "700" }}>
@@ -110,28 +124,35 @@ function PaymentDetails() {
               Pembayaran
             </p>
             <p style={{ fontSize: "13px", borderBottom: "1px solid black", paddingBottom: "10px" }}>
-              Saldo DibookingPay : <strong>Rp 100.000,-</strong>
+              Saldo DibookingPay : <strong>{dataPembayaran.saldo}</strong>
             </p>
             <div className="d-flex flex-column justify-content-end"></div>
             <div className="d-flex flex-column flex-wrap align-content-end" style={{ borderBottom: "1px solid black", paddingBottom: "15px" }}>
               <div style={{ width: "20rem" }}>
                 <div className="d-flex justify-content-between">
                   <p className="mb-1">Status</p>
-                  <p className="mb-1">Lunas</p>
+                  <p className="mb-1">{dataPembayaran.status}</p>
                 </div>
                 <div className="d-flex justify-content-between">
                   <p className="mb-1">Metode Pembayaran </p>
-                  <p className="mb-1">DibookingPay</p>
+                  <p className="mb-1">{dataPembayaran.metodePembayaran}</p>
                 </div>
                 <div className="d-flex justify-content-between">
                   <p className="mb-1">Total Pembayaran </p>
-                  <p className="mb-1" style={{ fontWeight: "700" }}>Rp 75.000</p>
+                  <p className="mb-1" style={{ fontWeight: "700" }}>{dataPembayaran.totalPembayaran}</p>
+                </div>
+                <div className="d-flex justify-content-between">
+                  {saldoMencukupi ? (
+                    <p className="mb-0" style={{ color: "red" }}>Maaf, Saldo Anda Tidak Mencukupi!</p>
+                  ) : (
+                    <p className="mb-0" style={{ color: "green" }}>Saldo mencukupi</p>
+                  )}
                 </div>
               </div>
             </div>
             <p style={{ color: "red", fontSize: "12px" }} className="d-flex align-items-center mt-1 mb-0">
               <CiCircleAlert size={20} />
-              <span className="ms-1">Mohon selesaikan pembayaran secepatnya.</span>
+              <span className="ms-1">{dataPembayaran.peringatan}</span>
             </p>
             <div className="d-flex flex-column flex-wrap align-content-end">
               <Form className="d-flex justify-content-center pt-2" style={{ width: "100%", maxWidth: "25rem" }}>
