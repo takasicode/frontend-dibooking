@@ -81,7 +81,7 @@ function Login() {
 
   return (
     <div className="h-100">
-      <Row className="w-100 g-0">
+      <Row className="group g-0">
         <Col lg="6" className="d-flex align-items-center">
           <Card.Body>
             <div className="text-center mt-5">
