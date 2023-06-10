@@ -84,19 +84,19 @@ function AboutUs() {
         <Row className="gx-0 mt-5 mb-5">
           <h4 className="mt-5 mb-5 text-center" style={{ fontWeight: '700' }}>Layanan Kami</h4>
           <Col md={4} className="text-center">
-            <div className="image-container">
+            <div className="images-container">
               <Image src={layananSewaLapangan} width={"190px"} height={"190px"} style={{ padding: "30px" }} />
             </div>
             <p className="mb-4 text-center align-content-center" style={{ fontWeight: '700' }}>Sewa Lapangan</p>
           </Col>
           <Col md={4} className="text-center">
-            <div className="image-container">
+            <div className="images-container">
               <Image src={layananKelolaLapangan} width={"190px"} height={"190px"} style={{ padding: "30px" }} />
             </div>
             <p className="mb-4 text-center align-content-center" style={{ fontWeight: '700' }}>Kelola Lapangan</p>
           </Col>
           <Col md={4} className="text-center">
-            <div className="image-container">
+            <div className="images-container">
               <Image src={layananCariLapangan} width={"190px"} height={"190px"} style={{ padding: "30px" }} />
             </div>
             <p className="mb-4 text-center align-content-center" style={{ fontWeight: '700' }}>Cari Lapangan</p>
@@ -124,28 +124,28 @@ function AboutUs() {
         <Row className="gx-0 mt-5 mb-5">
           <h4 className="mt-5 mb-5 text-center" style={{ fontWeight: '700' }}>Tim Pengembang</h4>
           <Col md={3} className="text-center">
-            <div className="image-container">
+            <div className="images-container">
               <Image src={manDev} width={"190px"} height={"190px"} style={{ padding: "30px" }} roundedCircle />
             </div>
             <p className="mb-0 text-center align-content-center" style={{ fontWeight: '700' }}>Rifqi Afwan</p>
             <p className="mb-4 text-center align-content-center" style={{ fontSize: '14px' }}>Back-End Engineer</p>
           </Col>
           <Col md={3} className="text-center">
-            <div className="image-container">
+            <div className="images-container">
               <Image src={manDev} width={"190px"} height={"190px"} style={{ padding: "30px" }} roundedCircle />
             </div>
             <p className="mb-0 text-center align-content-center" style={{ fontWeight: '700' }}>Fadhil Abyansyah</p>
             <p className="mb-4 text-center align-content-center" style={{ fontSize: '14px' }}>Front-End Developer</p>
           </Col>
           <Col md={3} className="text-center">
-            <div className="image-container">
+            <div className="images-container">
               <Image src={manDev} width={"190px"} height={"190px"} style={{ padding: "30px" }} roundedCircle />
             </div>
             <p className="mb-0 text-center align-content-center" style={{ fontWeight: '700' }}>Rizqi Akbar</p>
             <p className="mb-4 text-center align-content-center" style={{ fontSize: '14px' }}>Front-End Developer</p>
           </Col>
           <Col md={3} className="text-center">
-            <div className="image-container">
+            <div className="images-container">
               <Image src={manDev} width={"190px"} height={"190px"} style={{ padding: "30px" }} roundedCircle />
             </div>
             <p className="mb-0 text-center align-content-center" style={{ fontWeight: '700' }}>Rizki Dwi</p>
