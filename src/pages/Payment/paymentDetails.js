@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Container, Image, Form, Button } from 'react-bootstrap';
 import { BiUserCircle, BiMessageDetail } from "react-icons/bi";
 import { GiSoccerField } from "react-icons/gi";
@@ -33,8 +33,8 @@ function PaymentDetails() {
 
   const saldoMencukupi = true;
 
-  const [isOutlineButtonHovered, setOutlineButtonHovered] = useState(false);
-  const [isFillButtonHovered, setFillButtonHovered] = useState(false);
+  const [isOutlineButtonHovered, setOutlineButtonHovered] = React.useState(false);
+  const [isFillButtonHovered, setFillButtonHovered] = React.useState(false);
 
   const buttonOutline = {
     fontWeight: 'bold',
@@ -74,7 +74,7 @@ function PaymentDetails() {
     boxShadow: '3px 3px 2px rgba(0, 0, 0, 0.2)'
   };
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const handleClick = () => {
     setIsLoading(true);

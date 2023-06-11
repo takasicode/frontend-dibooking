@@ -1,27 +1,29 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import HomePage from './pages/Homepage';
+import HomePage from './pages/Homepage/home';
+import About from './pages/Homepage/about';
 import Register from './pages/Register/register';
 import Login from './pages/Login/login';
-import HomePageAccount from './pages/HomepageAccount';
-import AboutUs from './pages/AboutUs';
-import FieldDetails from './pages/FieldDetails';
-import PaymentDetails from './pages/PaymentDetails';
-import PaymentConfirmation from './pages/PaymentConfirmation';
-import AccountDetails from './pages/AccountDetails';
+import HomePageAccount from './pages/HomepageAccount/home';
+import AboutUs from './pages/HomepageAccount/about';
+import FieldDetails from './pages/FieldDetails/detailsProduct';
+import PaymentDetails from './pages/Payment/paymentDetails';
+import PaymentConfirmation from './pages/Payment/paymentConfirmation';
+import AccountDetails from './pages/AccountDetails/accountDetails';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="about" element={<About />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
         <Route path="account" element={<HomePageAccount />} />
-        <Route path="about-us" element={<AboutUs />} />
-        <Route path="details" element={<FieldDetails />} />
-        <Route path="payments" element={<PaymentDetails />} />
-        <Route path="payments/confirmation" element={<PaymentConfirmation />} />
+        <Route path="account/about" element={<AboutUs />} />
+        <Route path="detail" element={<FieldDetails />} />
+        <Route path="payment" element={<PaymentDetails />} />
+        <Route path="payment/confirmation" element={<PaymentConfirmation />} />
         <Route path="user" element={<AccountDetails />} />
       </Routes>
     </BrowserRouter>

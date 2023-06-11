@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Row, Col, Card, Image, Form, FloatingLabel, Button, Spinner } from 'react-bootstrap';
-import './register.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
-import TextInputWithFloatLabel from '../../components/TextInputWithFloatLabel';
+import TextInputWithFloatLabel from '../../components/TextInputWithFloatLabel/TextInputWithFloatLabel';
 import DAlert from '../../components/Alert';
 import logo from '../../assets/icons/logo.png';
 import ilustrations from '../../assets/images/ilustrations.png';
@@ -146,7 +145,7 @@ function Register() {
         <Col lg="6" className="d-flex align-items-center">
           <Card.Body>
             <div className="text-center mt-5">
-              <Image src={logo} className="logo" alt="logo"></Image>
+              <Image src={logo} alt="logo" style={{ width: "117px", height: "74px", objectFit: "cover", marginLeft: "45px" }}></Image>
               <Card.Title className="mt-1 mb-2">Daftar</Card.Title>
               <Card.Text>Silahkan daftar akun terlebih dahulu</Card.Text>
             </div>
@@ -212,7 +211,7 @@ function Register() {
                 </Form.Select>
               </FloatingLabel>
               <div className="text-muted mb-4">
-                Sudah punya akun? <a href="/login" className="anchor">Masuk</a>
+                Sudah punya akun? <a href="/login" style={{ fontWeight: "bold", textDecoration: "none" }}>Masuk</a>
               </div>
               <Button
                 style={isFillButtonHovered ? buttonFillHover : buttonFill}
@@ -240,8 +239,8 @@ function Register() {
             </Form>
           </Card.Body>
         </Col>
-        <Col lg="6" className="d-flex justify-content-center align-items-center right">
-          <Image src={ilustrations} className="image-right d-none d-lg-block p-3" alt="logo-register" />
+        <Col lg="6" className="d-flex justify-content-center align-items-center" style={{ backgroundColor: "#ff7315" }}>
+          <Image src={ilustrations} className="d-none d-lg-block p-3" alt="logo-register" style={{ width: "450px", height: "450px", objectFit: "cover" }} />
         </Col>
       </Row>
     </div>
