@@ -39,6 +39,7 @@ function Register() {
     color: 'white',
     width: '100%',
     height: '50px',
+    marginTop: '2rem',
     border: 'none',
     borderRadius: '0.3rem',
     boxShadow: '3px 3px 2px rgba(0, 0, 0, 0.1)',
@@ -71,7 +72,6 @@ function Register() {
     ...buttonOutline,
     boxShadow: '3px 3px 2px rgba(0, 0, 0, 0.2)'
   };
-
 
   const [loading, setLoading] = React.useState(false);
 
@@ -212,7 +212,7 @@ function Register() {
                 </Form.Select>
               </FloatingLabel>
               <div className="text-muted mb-4">
-                Sudah punya akun? <a href="#!" className="anchor">Masuk</a>
+                Sudah punya akun? <a href="/login" className="anchor">Masuk</a>
               </div>
               <Button
                 style={isFillButtonHovered ? buttonFillHover : buttonFill}
