@@ -10,6 +10,7 @@ import FieldDetails from './pages/FieldDetails/detailsProduct';
 import PaymentDetails from './pages/Payment/paymentDetails';
 import PaymentConfirmation from './pages/Payment/paymentConfirmation';
 import AccountDetails from './pages/AccountDetails/accountDetails';
+import Booking from './pages/Booking/booking';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="payment" element={<PaymentDetails />} />
         <Route path="payment/confirmation" element={<PaymentConfirmation />} />
         <Route path="user" element={<AccountDetails />} />
+        <Route path="booking" element={<Booking />} />
       </Routes>
     </BrowserRouter>
   );

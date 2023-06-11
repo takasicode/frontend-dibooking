@@ -9,14 +9,14 @@ import Spinner from "react-bootstrap/Spinner";
 
 function PaymentDetails() {
   const dataPenyewa = {
-    nama: "John Doe",
+    nama: "Muhammad Fadhil Abyansyah",
     nomorTelepon: "082134554212",
-    alamat: "Jl. Suyono Ardianto, Perum. Jaya Wijaya Blok A No. 24, Jakarta Selatan"
+    alamat: "Jl. Kartini, Perum Jaya Wijaya No. 24, Jepara"
   };
 
   const dataPemesanan = {
-    namaManajemen: "Jakselmania FC",
-    namaLapangan: "Lapangan Futsal Jakselmania",
+    namaManajemen: "Semarang FC",
+    namaLapangan: "Semarang Stadium",
     tanggalPemesanan: "21-05-2023",
     jamPemesanan: "19.00 - 20.00 WIB",
     hargaSewa: "Rp 75.000/Jam",
@@ -85,8 +85,8 @@ function PaymentDetails() {
 
   return (
     <>
-      <Container>
-        <div className="mt-4 mb-5" style={{ height: "fit-content", overflow: "hidden", margin: "auto", }}>
+      <Container className="py-5">
+        <div className="mb-5" style={{ height: "fit-content", overflow: "hidden", margin: "auto", }}>
           <div className="mb-5">
             <p className="d-flex align-items-center mb-2" style={{ color: "#FF7315", fontWeight: "700" }}>
               <BiUserCircle style={{ color: "#FF7315", marginRight: "5px", height: "25px", width: "25px" }} />
@@ -118,6 +118,7 @@ function PaymentDetails() {
             </div>
             <p className="d-flex justify-content-between align-content-center" style={{ fontWeight: "500" }}>Total Harga{" "}<span>{dataPemesanan.totalPembayaran}</span></p>
           </div>
+
           <div className="mb-0">
             <p className="d-flex align-items-center mb-2" style={{ color: "#FF7315", fontWeight: "700" }}>
               <FaMoneyBillWave style={{ color: "#FF7315", marginRight: "5px", height: "30px", width: "30px" }} />
