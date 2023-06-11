@@ -1,13 +1,10 @@
-import React from 'react';
-import { Row, Col, Card, Image } from 'react-bootstrap';
-import '../Register/index.css';
+import React, { useState } from 'react';
+import { Row, Col, Card, Image, Form, FloatingLabel, Button, Spinner } from 'react-bootstrap';
+import '../Register/register';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
-import { Form, FloatingLabel } from "react-bootstrap";
-import ThemeProvider from 'react-bootstrap/ThemeProvider';
 import TextInputWithFloatLabel from '../../components/TextInputWithFloatLabel';
-import DButton from '../../components/Button';
 import DAlert from '../../components/Alert';
 import logo from '../../assets/icons/logo.png';
 import ilustrations from '../../assets/images/ilustrations.png';
@@ -26,6 +23,52 @@ function Login() {
     message: "",
     type: "",
   });
+
+  const [isFillButtonHovered, setFillButtonHovered] = React.useState(false);
+  const [isOutlineButtonHovered, setOutlineButtonHovered] = useState(false);
+
+  const buttonFill = {
+    fontSize: '16px',
+    fontWeight: 'bold',
+    letterSpacing: '1px',
+    textTransform: 'capitalize',
+    backgroundColor: '#ff7315',
+    color: 'white',
+    width: '100%',
+    height: '50px',
+    marginTop: '2rem',
+    border: 'none',
+    borderRadius: '0.3rem',
+    boxShadow: '3px 3px 2px rgba(0, 0, 0, 0.1)',
+    transition: 'all 0.2s ease-in-out'
+  };
+
+  const buttonFillHover = {
+    ...buttonFill,
+    backgroundColor: '#ff8f44',
+    color: '#ffffff',
+    boxShadow: '3px 3px 2px rgba(0, 0, 0, 0.2)'
+  };
+
+  const buttonOutline = {
+    fontSize: '16px',
+    fontWeight: 'bold',
+    letterSpacing: '1px',
+    textTransform: 'capitalize',
+    backgroundColor: 'transparent',
+    color: '#ff7315',
+    width: '100%',
+    height: '50px',
+    border: '1px solid #ff7315',
+    borderRadius: '0.3rem',
+    boxShadow: '3px 3px 2px rgba(0, 0, 0, 0.1)',
+    transition: 'all 0.2s ease-in-out'
+  };
+
+  const buttonOutlineHover = {
+    ...buttonOutline,
+    boxShadow: '3px 3px 2px rgba(0, 0, 0, 0.2)'
+  };
 
   const [loading, setLoading] = React.useState(false);
 
@@ -81,7 +124,7 @@ function Login() {
 
   return (
     <div className="h-100">
-      <Row className="group g-0">
+      <Row className="g-0">
         <Col lg="6" className="d-flex align-items-center">
           <Card.Body>
             <div className="text-center mt-5">
@@ -89,7 +132,7 @@ function Login() {
               <Card.Title className="mt-1 mb-2">Masuk</Card.Title>
               <Card.Text>Silahkan masuk untuk lanjut ke website kami</Card.Text>
             </div>
-            <Form className="p-5">
+            <Form className="py-5 px-4">
               {alert.status && (
                 <DAlert message={alert.message} type={alert.type} />
               )}
@@ -128,42 +171,40 @@ function Login() {
               </FloatingLabel>
               <Row className="mb-4">
                 <Col className="text-muted">
-                  Belum punya akun? <a href="#!" className="anchor">Masuk</a>
+                  Belum punya akun? <a href="register" className="anchor">Daftar</a>
                 </Col>
                 <Col className="d-flex justify-content-end">
-                  <a href="#!" className="anchor">Lupa Password?</a>
+                  <a href="/reset" className="anchor">Lupa Password?</a>
                 </Col>
               </Row>
-              <ThemeProvider prefixes={{ btn: "btn-fill" }}>
-                <DButton
-                  loading={loading}
-                  disabled={loading}
-                  onClick={handleSubmit}
-                  variant="primary"
-                >
-                  Masuk
-                </DButton>
-              </ThemeProvider>
-              <hr className="my-4" />
-              <ThemeProvider prefixes={{ btn: "btn-outline" }}>
-                <DButton variant="primary">
-                  <FcGoogle className="me-2 mb-1" />
-                  Masuk dengan Google
-                </DButton>
-              </ThemeProvider>
+              <Button
+                style={isFillButtonHovered ? buttonFillHover : buttonFill}
+                disabled={loading}
+                onClick={handleSubmit}
+                onMouseEnter={() => setFillButtonHovered(true)}
+                onMouseLeave={() => setFillButtonHovered(false)}
+              >
+                {loading ? (
+                  <>
+                    <Spinner animation="border" size="sm" className="mr-4" /> Loading...
+                  </>
+                ) : (
+                  'Masuk'
+                )}
+              </Button>
+              <hr className="my-3" />
+              <Button style={isOutlineButtonHovered ? buttonOutlineHover : buttonOutline}
+                onMouseEnter={() => setOutlineButtonHovered(true)}
+                onMouseLeave={() => setOutlineButtonHovered(false)}
+              >
+                <FcGoogle className="me-2 mb-1" style={{ width: "25px", height: "25px" }} />
+                Daftar
+              </Button>
             </Form>
           </Card.Body>
         </Col>
-
-        <Col
-          lg="6"
-          className="d-flex justify-content-center align-items-center right"
-        >
-          <Image
-            src={ilustrations}
-            className="image-right d-none d-lg-block p-3"
-            alt="logo-register"
-          />
+        <Col lg="6" className="d-flex justify-content-center align-items-center right">
+          <Image src={ilustrations} className="image-right d-none d-lg-block p-3" alt="logo-register" />
         </Col>
       </Row>
     </div>

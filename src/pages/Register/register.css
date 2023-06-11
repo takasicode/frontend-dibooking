@@ -1,7 +1,3 @@
-.h-100 {
-  height: 100vh !important;
-}
-
 .logo {
   width: 117px;
   height: 74px;
@@ -23,9 +19,3 @@
   height: 450px;
   object-fit: cover;
 }
-
-/* @media (min-width: 768px) {
-  .h-100 {
-    height: 100vh !important;
-  }
-} */
