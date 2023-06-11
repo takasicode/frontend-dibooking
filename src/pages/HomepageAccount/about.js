@@ -1,17 +1,16 @@
 import React, { useState } from "react";
-import DNavbarAccount from "../../components/NavbarAccount";
-import { Container, Row, Col, Image } from "react-bootstrap";
+import { Container, Row, Col, Image, Button } from "react-bootstrap";
+import DNavbarAccount from "../../components/NavbarAccount/navbarAccount";
+import Footer from "../../components/Footer/footer";
+import "../Homepage/about.css"
 import sportFamily from "../../assets/images/sport-family.png";
 import layananSewaLapangan from "../../assets/images/layanan-sewa-lapangan.png";
 import layananKelolaLapangan from "../../assets/images/layanan-kelola-lapangan.png";
 import layananCariLapangan from "../../assets/images/layanan-cari-lapangan.png";
 import phone from "../../assets/images/phone.png";
 import manDev from "../../assets/images/man-dev.jpg"
-import "./index.css"
-import Button from "react-bootstrap/Button";
-import Footer from "../../components/Footer";
 
-function AboutUs() {
+function About() {
   const [isFillButtonHovered, setFillButtonHovered] = useState(false);
   const [isOutlineButtonHovered, setOutlineButtonHovered] = useState(false);
 
@@ -56,8 +55,8 @@ function AboutUs() {
   return (
     <>
       <DNavbarAccount />
-      <Container>
-        <Row className="wrapper-group gx-0 mb-5">
+      <Container className="py-5">
+        <Row className="gx-0 mb-5" style={{ width: "100%", height: "70vh" }}>
           <Col md={6}>
             <div className="d-flex align-items-center h-100">
               <div>
@@ -121,7 +120,7 @@ function AboutUs() {
             </div>
           </Col>
         </Row>
-        <Row className="gx-0 mt-5 mb-5">
+        <Row className="gx-0 mt-5">
           <h4 className="mt-5 mb-5 text-center" style={{ fontWeight: '700' }}>Tim Pengembang</h4>
           <Col md={3} className="text-center">
             <div className="images-container">
@@ -159,4 +158,4 @@ function AboutUs() {
   );
 }
 
-export default AboutUs;
+export default About;

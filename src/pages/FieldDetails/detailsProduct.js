@@ -1,17 +1,15 @@
 import React, { useState } from "react";
-import NavbarAccount from "../../components/NavbarAccount";
-import detail from "../../assets/images/detail-lapangan.png";
-import Footer from "../../components/Footer";
-import { Container, Row, Col, Image } from "react-bootstrap";
+import { Container, Row, Col, Image, Button, Spinner } from "react-bootstrap";
 import { FaMapMarkerAlt, FaStar, FaMosque, FaStore, FaParking, FaWineBottle } from "react-icons/fa";
 import { MdBathroom } from "react-icons/md";
+import { BiMessageDetail } from "react-icons/bi";
+import NavbarAccount from "../../components/NavbarAccount/navbarAccount";
+import Rating from "../../components/Rating/Rating";
+import Footer from "../../components/Footer/footer";
+import "./detailsProduct.css";
+import detail from "../../assets/images/detail-lapangan.png";
 import iconProfile from "../../assets/icons/ic_profile.png";
 import online from "../../assets/icons/online.png";
-import { BiMessageDetail } from "react-icons/bi";
-import Button from "react-bootstrap/Button";
-import Rating from "../../components/Rating/Rating";
-import "./index.css";
-import Spinner from "react-bootstrap/Spinner";
 
 function FieldDetails() {
   const [isFillButtonHovered, setFillButtonHovered] = useState(false);
@@ -48,8 +46,8 @@ function FieldDetails() {
   return (
     <>
       <NavbarAccount />
-      <Container>
-        <Row className="justify-content-center align-items-center pt-4">
+      <Container className="py-5">
+        <Row className="justify-content-center align-items-center">
           <Col lg={8} md={12} className="text-center mb-3">
             <Image src={detail} alt="detail lapangan" className="img-fluid" />
           </Col>

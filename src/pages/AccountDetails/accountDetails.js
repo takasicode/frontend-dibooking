@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import NavbarAccount from "../../components/NavbarAccount";
+import NavbarAccount from "../../components/NavbarAccount/navbarAccount";
 import { Col, Container, Row, Card, Image, Button, Form, FloatingLabel } from "react-bootstrap";
-import { MDBInput, MDBSwitch } from 'mdb-react-ui-kit';
-
-import Footer from "../../components/Footer";
+import TextInputWithFloatLabel from '../../components/TextInputWithFloatLabel/TextInputWithFloatLabel';
+import Footer from "../../components/Footer/footer";
 
 function AccountDetails() {
   const dataPenyewa = {
@@ -31,10 +30,11 @@ function AccountDetails() {
   const [isFillButtonHovered, setFillButtonHovered] = useState(false);
 
   const buttonOutline = {
+    fontSize: '0.9rem',
     fontWeight: 'bold',
     backgroundColor: 'transparent',
     color: '#ff7315',
-    width: '200px',
+    width: '220px',
     height: '40px',
     border: '1px solid #ff7315',
     borderRadius: '0.3rem',
@@ -128,15 +128,36 @@ function AccountDetails() {
               <Card.Body>
                 <Row>
                   <Col sm="12" className="d-flex flex-column justify-content-center align-content-center pt-4 pb-4">
-                    <MDBInput label='Nama Lengkap' id='namaLengkap' type='text' size='lg' />
+                    <TextInputWithFloatLabel
+                      label='Nama Lengkap'
+                      id='namaLengkap'
+                      type='text'
+                      placeholder="Nama Lengkap"
+                      value={form.nama}
+                      onChange={handleChange}
+                    />
                   </Col>
                   <Col sm="12" className="d-flex flex-column justify-content-center align-content-center pb-4">
-                    <MDBInput label='Email' id='email' type='text' size='lg' />
+                    <TextInputWithFloatLabel
+                      label='Email'
+                      id='email'
+                      type='text'
+                      placeholder="Email"
+                      value={form.email}
+                      onChange={handleChange}
+                    />
                   </Col>
                   <Col sm="12" className="d-flex flex-column justify-content-center align-content-center pb-4">
-                    <MDBInput label='Nomor Telepon' id='nomorTelepon' type='text' size='lg' />
+                    <TextInputWithFloatLabel
+                      label='Nomor Telepon'
+                      id='nomorTelepon'
+                      type='text'
+                      placeholder="081234567890"
+                      value={form.nomor_ponsel}
+                      onChange={handleChange}
+                    />
                   </Col>
-                  <Col sm="12" className="d-flex flex-column justify-content-center align-content-center pb-3">
+                  <Col sm="12" className="d-flex flex-column justify-content-center align-content-center pb-0">
                     <FloatingLabel
                       size="sm"
                       controlId="floatingSelect"
@@ -158,7 +179,7 @@ function AccountDetails() {
                     </FloatingLabel>
                   </Col>
                   <Col sm="12" className="d-flex flex-column flex-sm-row justify-content-between align-content-center pb-4">
-                    <MDBSwitch label='Aktifkan Notifikasi' id='aktifkanNotifikasi' />
+                    <Form.Check type="switch" id="custom-switch" label="Aktifkan Notifikasi" />
                     <Button style={isOutlineButtonHovered ? buttonOutlineHover : buttonOutline}
                       onMouseEnter={() => setOutlineButtonHovered(true)}
                       onMouseLeave={() => setOutlineButtonHovered(false)}

@@ -1,5 +1,5 @@
 import React from "react";
-import './index.css';
+import './footer.css';
 import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
 
@@ -15,25 +15,25 @@ const Footer = () => {
             </div>
             <div className="dibooking-footer-links_div">
               <h4>Produk Kami</h4>
-              <Link to="#promo-diskon">
-                <p>Promo & Diskon</p>
+              <Link to="#promo">
+                <p>Promo</p>
               </Link>
-              <Link to="#rekomendasi">
+              <Link to="#recommendation">
                 <p>Rekomendasi Lapangan</p>
               </Link>
-              <Link to="#kategori">
+              <Link to="#category">
                 <p>Kategori Lapangan</p>
               </Link>
             </div>
             <div className="dibooking-footer-links_div">
               <h4>Jelajahi kami</h4>
-              <Link to="/tentang-kami">
+              <Link to="/about">
                 <p>Tentang Kami</p>
               </Link>
-              <Link to="/privasi">
+              <Link to="/privacy">
                 <p>Privasi</p>
               </Link>
-              <Link to="/syarat-ketentuan">
+              <Link to="/terms">
                 <p>Syarat & Ketentuan</p>
               </Link>
             </div>
