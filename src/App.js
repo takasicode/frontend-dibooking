@@ -8,6 +8,7 @@ import AboutUs from './pages/AboutUs';
 import FieldDetails from './pages/FieldDetails';
 import PaymentDetails from './pages/PaymentDetails';
 import PaymentConfirmation from './pages/PaymentConfirmation';
+import AccountDetails from './pages/AccountDetails';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="details" element={<FieldDetails />} />
         <Route path="payments" element={<PaymentDetails />} />
         <Route path="payments/confirmation" element={<PaymentConfirmation />} />
+        <Route path="user" element={<AccountDetails />} />
       </Routes>
     </BrowserRouter>
   );
