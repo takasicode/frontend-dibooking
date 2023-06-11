@@ -7,7 +7,7 @@ import Footer from "../../components/Footer/footer";
 function AccountDetails() {
   const dataPenyewa = {
     imageSrc: "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp",
-    name: "John Doe",
+    name: "Muhammad Fadhil Abyansyah",
     saldoText: "Rp 100.000"
   };
 
