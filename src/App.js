@@ -4,8 +4,6 @@ import HomePage from './pages/Homepage/home';
 import About from './pages/Homepage/about';
 import Register from './pages/Register/register';
 import Login from './pages/Login/login';
-import HomePageAccount from './pages/HomepageAccount/home';
-import AboutUs from './pages/HomepageAccount/about';
 import FieldDetails from './pages/FieldDetails/detailsProduct';
 import PaymentDetails from './pages/Payment/paymentDetails';
 import PaymentConfirmation from './pages/Payment/paymentConfirmation';
@@ -21,8 +19,6 @@ function App() {
         <Route path="about" element={<About />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
-        <Route path="account" element={<HomePageAccount />} />
-        <Route path="account/about" element={<AboutUs />} />
         <Route path="detail" element={<FieldDetails />} />
         <Route path="payment" element={<PaymentDetails />} />
         <Route path="payment/confirmation" element={<PaymentConfirmation />} />

@@ -1,8 +1,14 @@
+/* eslint-disable no-sequences */
+/* eslint-disable no-use-before-define */
 import React, { useState } from 'react';
-import { Navbar, Nav, Container, NavDropdown, Button } from 'react-bootstrap';
+import { Navbar, Nav, Container, NavDropdown, Button, Image } from 'react-bootstrap';
 import logo from '../../assets/icons/logo.png';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import locations from '../Lokasi/data';
 
 function DNavbar() {
+  const images = require('../../assets/images/profile.jpeg')
   const [isOutlineButtonHovered, setOutlineButtonHovered] = useState(false);
   const [isFillButtonHovered, setFillButtonHovered] = useState(false);
 
@@ -48,23 +54,40 @@ function DNavbar() {
     setSelectedLocation(eventKey);
   };
 
-  const locations = [
-    "Banyumanik",
-    "Candisari",
-    "Gayamsari",
-    "Genuk",
-    "Gunungpati",
-    "Mijen",
-    "Ngaliyan",
-    "Pedurungan",
-    "Semarang Barat",
-    "Semarang Selatan",
-    "Semarang Tengah",
-    "Semarang Timur",
-    "Semarang Utara",
-    "Tembalang",
-    "Tugu"
-  ];
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [user, setUser] = useState({
+    name: "",
+    saldo: "",
+  });
+
+  const fetchUser = async (token) => {
+    const response = await fetch("http://localhost:8000/api/detail/profile", {
+      method: "GET",
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
+    const data = await response.json();
+    setUser({
+      name: data.token.name,
+      saldo: data.token.saldo,
+    });
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setLoggedIn(true);
+      fetchUser(token);
+    }
+  }, []);
+
+  const navigate = useNavigate();
+  const logout = () => {
+    localStorage.removeItem("token");
+    setLoggedIn(false);
+    navigate("/");
+  };
 
   return (
     <Navbar bg="light" expand="lg" className="d-flex flex-column m-0 p-0" style={{ boxShadow: "3px 3px 2px rgba(0, 0, 0, 0.1)" }}>
@@ -81,16 +104,38 @@ function DNavbar() {
             <Nav.Link href="#category">Kategori</Nav.Link>
             <Nav.Link href="/about">Tentang Kami</Nav.Link>
           </Nav>
-          <Nav className="ms-lg-auto gap-4">
-            <Button style={isOutlineButtonHovered ? buttonOutlineHover : buttonOutline}
-              onMouseEnter={() => setOutlineButtonHovered(true)}
-              onMouseLeave={() => setOutlineButtonHovered(false)}
-            >Masuk</Button>
-            <Button style={isFillButtonHovered ? buttonFillHover : buttonFill}
-              onMouseEnter={() => setFillButtonHovered(true)}
-              onMouseLeave={() => setFillButtonHovered(false)}
-            >Daftar</Button>
+          {!loggedIn ? (
+            <Nav className="ms-lg-auto gap-4">
+              <Button href="/login" style={{...(isOutlineButtonHovered ? buttonOutlineHover : buttonOutline), display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center"}}
+                onMouseEnter={() => setOutlineButtonHovered(true)}
+                onMouseLeave={() => setOutlineButtonHovered(false)}
+              >Masuk</Button>
+              <Button href="/register" style={{...(isFillButtonHovered ? buttonFillHover : buttonFill), display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center"}}
+                onMouseEnter={() => setFillButtonHovered(true)}
+                onMouseLeave={() => setFillButtonHovered(false)}
+              >Daftar</Button>
+            </Nav>
+          ) : (
+            <Nav className="ms-lg-auto align-items-center">
+            <NavDropdown
+              align={{ xxxl: 'start' }}
+              title={
+                <span className="d-inline-flex align-items-center">
+                  <span className="me-3">{user.name}</span>
+                  <Image src={images} height={"40px"} width={"40px"} roundedCircle />
+                </span>
+              }
+            >
+              <NavDropdown.Item href="/saldo">Rp {user.saldo}</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="/user">Detail Akun</NavDropdown.Item>
+              <NavDropdown.Item href="/booking">Pemesanan</NavDropdown.Item>
+              <NavDropdown.Item href="/history">Riwayat Pemesanan</NavDropdown.Item>
+              <NavDropdown.Item href="/notification">Notifikasi</NavDropdown.Item>
+              <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
+            </NavDropdown>
           </Nav>
+          )}
         </Navbar.Collapse>
       </Container>
       <div style={{ width: "100%", backgroundColor: "#2f2e41", color: "#ffffff" }}>

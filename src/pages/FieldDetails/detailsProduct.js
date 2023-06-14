@@ -3,7 +3,7 @@ import { Container, Row, Col, Image, Button, Spinner } from "react-bootstrap";
 import { FaMapMarkerAlt, FaStar, FaMosque, FaStore, FaParking, FaWineBottle } from "react-icons/fa";
 import { MdBathroom } from "react-icons/md";
 import { BiMessageDetail } from "react-icons/bi";
-import NavbarAccount from "../../components/NavbarAccount/navbarAccount";
+import DNavbar from "../../components/Navbar/navbar";
 import Rating from "../../components/Rating/Rating";
 import Footer from "../../components/Footer/footer";
 import "./detailsProduct.css";
@@ -45,7 +45,7 @@ function FieldDetails() {
 
   return (
     <>
-      <NavbarAccount />
+      <DNavbar />
       <Container className="py-5">
         <Row className="justify-content-center align-items-center">
           <Col lg={8} md={12} className="text-center mb-3">

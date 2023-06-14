@@ -1,26 +1,71 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from "react";
-import NavbarAccount from "../../components/NavbarAccount/navbarAccount";
+import DNavbar from "../../components/Navbar/navbar";
 import { Col, Container, Row, Card, Image, Button, Form, FloatingLabel } from "react-bootstrap";
 import TextInputWithFloatLabel from '../../components/TextInputWithFloatLabel/TextInputWithFloatLabel';
 import Footer from "../../components/Footer/footer";
+import { useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from 'react-router-dom';
+import locations from "../../components/Lokasi/data";
 
 function AccountDetails() {
-  const dataPenyewa = {
-    imageSrc: "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp",
-    name: "Muhammad Fadhil Abyansyah",
-    saldoText: "Rp 100.000"
-  };
-
-  const [form, setForm] = React.useState({
-    nama: "",
+  const [dataPenyewa, setDataPenyewa] = useState({
+    imageSrc: "",
+    name: "",
+    saldo: "",
     email: "",
     nomor_ponsel: "",
     lokasi: ""
   });
+  useEffect(() => {
+    const loggedIn = localStorage.getItem("token");
+    if (!loggedIn) {
+      window.location.href = "/login";
+    }
+    async function fetchData() {
+      const response = await axios.get("http://localhost:8000/api/detail/profile", {
+        headers: {
+          Authorization: loggedIn,
+        },
+      });
+      console.log(response);
+      setDataPenyewa({
+        imageSrc: "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp",
+        name: response.data.token.name,
+        saldo: response.data.token.saldo,
+        email: response.data.token.email,
+        nomor_ponsel: response.data.token.nomor_ponsel,
+        lokasi: response.data.token.lokasi
+      });
+    }
+    fetchData();
+  }, []);
+  const navigate = useNavigate();
+  const updateProfile = async () => {
+    const loggedIn = localStorage.getItem("token");
+    const data = {
+      name: dataPenyewa.name,
+      email: dataPenyewa.email,
+      nomor_ponsel: dataPenyewa.nomor_ponsel,
+      lokasi: dataPenyewa.lokasi
+    }
+    const response = await axios.put("http://localhost:8000/api/detail/update", data, {
+      headers: {
+        Authorization: `${loggedIn}`,
+      },
+    });
+    if (response.status === 200) {
+      navigate("/user");
+      alert("Berhasil mengubah data");
+    } else {
+      alert("Gagal mengubah data");
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm((prevState) => ({
+    setDataPenyewa((prevState) => ({
       ...prevState,
       [name]: value,
     }));
@@ -67,31 +112,18 @@ function AccountDetails() {
     color: '#ffffff',
     boxShadow: '3px 3px 2px rgba(0, 0, 0, 0.2)'
   };
-
   const dataLokasi = {
     options: [
       { label: 'Buka menu pilih ini', value: '' },
-      { label: 'Banyumanik', value: 'Banyumanik' },
-      { label: 'Candisari', value: 'Candisari' },
-      { label: 'Gayamsari', value: 'Gayamsari' },
-      { label: 'Genuk', value: 'Genuk' },
-      { label: 'Gunungpati', value: 'Gunungpati' },
-      { label: 'Mijen', value: 'Mijen' },
-      { label: 'Ngaliyan', value: 'Ngaliyan' },
-      { label: 'Pedurungan', value: 'Pedurungan' },
-      { label: 'Semarang Barat', value: 'Semarang Barat' },
-      { label: 'Semarang Selatan', value: 'Semarang Selatan' },
-      { label: 'Semarang Tengah', value: 'Semarang Tengah' },
-      { label: 'Semarang Timur', value: 'Semarang Timur' },
-      { label: 'Semarang Utara', value: 'Semarang Utara' },
-      { label: 'Tembalang', value: 'Tembalang' },
-      { label: 'Tugu', value: 'Tugu' }
+      ...locations.map((location) => {
+        return { label: location, value: location }
+      })
     ]
   };
 
   return (
     <>
-      <NavbarAccount />
+      <DNavbar />
       <Container className="py-5">
         <Row>
           <Col lg="4">
@@ -103,7 +135,7 @@ function AccountDetails() {
                   style={{ width: '150px' }}
                   roundedCircle />
                 <Card.Title className="mt-3">{dataPenyewa.name}</Card.Title>
-                <p className="text-muted mt-3">Saldo Anda : {dataPenyewa.saldoText}</p>
+                <p className="text-muted mt-3">Saldo Anda : {dataPenyewa.saldo}</p>
                 <div className="d-flex justify-content-center mb-2">
                   <Button style={isFillButtonHovered ? buttonFillHover : buttonFill}
                     onMouseEnter={() => setFillButtonHovered(true)}
@@ -132,8 +164,9 @@ function AccountDetails() {
                       label='Nama Lengkap'
                       id='namaLengkap'
                       type='text'
-                      placeholder="Nama Lengkap"
-                      value={form.nama}
+                      name="name"
+                      placeholder={dataPenyewa.name}
+                      value={dataPenyewa.name}
                       onChange={handleChange}
                     />
                   </Col>
@@ -142,8 +175,9 @@ function AccountDetails() {
                       label='Email'
                       id='email'
                       type='text'
-                      placeholder="Email"
-                      value={form.email}
+                      name="email"
+                      placeholder={dataPenyewa.email}
+                      value={dataPenyewa.email}
                       onChange={handleChange}
                     />
                   </Col>
@@ -152,8 +186,9 @@ function AccountDetails() {
                       label='Nomor Telepon'
                       id='nomorTelepon'
                       type='text'
-                      placeholder="081234567890"
-                      value={form.nomor_ponsel}
+                      name="nomor_ponsel"
+                      placeholder={dataPenyewa.nomor_ponsel}
+                      value={dataPenyewa.nomor_ponsel}
                       onChange={handleChange}
                     />
                   </Col>
@@ -167,7 +202,7 @@ function AccountDetails() {
                       <Form.Select
                         aria-label="Floating label select"
                         name="lokasi"
-                        value={form.lokasi}
+                        value={dataPenyewa.lokasi}
                         onChange={handleChange}
                       >
                         {dataLokasi.options.map(option => (
@@ -189,6 +224,7 @@ function AccountDetails() {
                     <Button style={isFillButtonHovered ? buttonFillHover : buttonFill}
                       onMouseEnter={() => setFillButtonHovered(true)}
                       onMouseLeave={() => setFillButtonHovered(false)}
+                      onClick={updateProfile}
                     >Simpan</Button>
                   </Col>
                 </Row>

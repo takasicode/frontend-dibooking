@@ -106,10 +106,12 @@ function Login() {
     }
 
     setLoading(true);
-    axios.post('/api/login', form)
+    axios.post('http://localhost:8000/api/user/login', form)
       .then((response) => {
         setLoading(false);
-        navigate("/home");
+        localStorage.setItem("token", response.data.token);
+        navigate("/");
+        alert("Login berhasil");
       })
       .catch((error) => {
         setLoading(false);

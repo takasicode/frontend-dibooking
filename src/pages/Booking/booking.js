@@ -2,10 +2,17 @@ import React from "react";
 import { Container, Image } from "react-bootstrap";
 import { BiMessageDetail } from "react-icons/bi";
 import iconProfileBox from "../../assets/icons/ic_profile_box.png";
-import DNavbarAccount from "../../components/NavbarAccount/navbarAccount";
+import DNavbar from "../../components/Navbar/navbar";
 import Footer from "../../components/Footer/footer";
+import { useEffect } from "react";
 
 function Booking() {
+  useEffect(() => {
+    const loggedIn = localStorage.getItem("token");
+    if (!loggedIn) {
+      window.location.href = "/login";
+    }
+  }, []);
   const dataPemesanan = {
     namaManajemen: "Semarang FC",
     namaLapangan: "Semarang Stadium",
@@ -39,7 +46,7 @@ function Booking() {
 
   return (
     <>
-      <DNavbarAccount />
+      <DNavbar />
       <Container className="py-5">
         <div className="mb-5" style={{ height: "fit-content", overflow: "hidden", margin: "auto" }}>
           <div className="d-flex justify-content-between align-items-center">

@@ -84,13 +84,22 @@ function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const data = {
+      name: form.nama,
+      nomor_ponsel: form.nomor_ponsel,
+      email: form.email,
+      password: form.password,
+      daftar_sebagai: form.daftar_sebagai,
+    };
+    console.log(data);
     const isValid = validateForm();
     if (isValid) {
       setLoading(true);
-      axios.post('/api/register', form)
+      axios.post('http://localhost:8000/api/user/register', data)
         .then((response) => {
           setLoading(false);
-          navigate('/home');
+          navigate('/login');
+          alert('Berhasil mendaftar');
         })
         .catch((error) => {
           setLoading(false);
