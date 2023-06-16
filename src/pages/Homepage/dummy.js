@@ -53,16 +53,16 @@ const carouselItems = [
 
   const images = [
     {
-      src: require('../../assets/icons/ic_football.png'),
-      alt: 'Football',
-      link: '/sepak-bola',
-      title: 'Sepak Bola'
-    },
-    {
       src: require('../../assets/icons/ic_soccer_ball.png'),
       alt: 'Soccer Ball',
       link: '/futsal',
       title: 'Futsal'
+    },
+    {
+      src: require('../../assets/icons/ic_football.png'),
+      alt: 'Football',
+      link: '/sepak-bola',
+      title: 'Sepak Bola'
     },
     {
       src: require('../../assets/icons/ic_badminton.png'),
@@ -74,13 +74,13 @@ const carouselItems = [
       src: require('../../assets/icons/ic_basketball.png'),
       alt: 'Basketball',
       link: '/bola-basket',
-      title: 'Bola Basket'
+      title: 'Basket'
     },
     {
       src: require('../../assets/icons/ic_volleyball.png'),
       alt: 'Volleyball',
       link: '/bola-voli',
-      title: 'Bola Voli'
+      title: 'Voli'
     },
     {
       src: require('../../assets/icons/ic_billiards.png'),

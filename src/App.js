@@ -19,8 +19,8 @@ function App() {
         <Route path="about" element={<About />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
-        <Route path="detail" element={<FieldDetails />} />
-        <Route path="payment" element={<PaymentDetails />} />
+        <Route path="/detail/:id" element={<FieldDetails />} />
+        <Route path="payment/:id" element={<PaymentDetails />} />
         <Route path="payment/confirmation" element={<PaymentConfirmation />} />
         <Route path="user" element={<AccountDetails />} />
         <Route path="booking" element={<Booking />} />

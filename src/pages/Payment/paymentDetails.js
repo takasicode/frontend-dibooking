@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from 'react';
 import { Container, Image, Form, Button } from 'react-bootstrap';
 import { BiUserCircle, BiMessageDetail } from "react-icons/bi";
 import { GiSoccerField } from "react-icons/gi";
@@ -6,35 +7,71 @@ import iconProfileBox from '../../assets/icons/ic_profile_box.png';
 import { FaMoneyBillWave } from "react-icons/fa";
 import { CiCircleAlert } from "react-icons/ci";
 import Spinner from "react-bootstrap/Spinner";
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from "axios";
+
 
 function PaymentDetails() {
+  const navigate = useNavigate();
+  const params = useParams();
+  const bookingId = params.id;
+  const [booking, setBooking] = useState({
+    penyewa: {
+      name: "",
+      nomor_ponsel: "",
+      saldo: ""
+    },
+    lapangan: {
+      manager: "",
+      title: "",
+      price: "",
+      nomor_ponsel: ""
+    },
+    pesanan: {
+      total: "",
+      tanggal: "",
+      jam: "",
+      status: ""
+    }
+  });
+  useEffect(() => {
+    async function fetchData() {
+      const response = await axios.get(`http://localhost:8000/api/pemesanan/confirmation/${bookingId}`);
+      setBooking(response.data);
+      if (response.data.pesanan.status !== "Menunggu Pembayaran") {
+        navigate(`/`);
+      }
+    }
+    fetchData();
+  }, [bookingId]);
+  
   const dataPenyewa = {
-    nama: "Muhammad Fadhil Abyansyah",
-    nomorTelepon: "082134554212",
-    alamat: "Jl. Kartini, Perum Jaya Wijaya No. 24, Jepara"
+    nama: booking.penyewa.name,
+    nomorTelepon: booking.penyewa.nomor_ponsel,
   };
 
   const dataPemesanan = {
-    namaManajemen: "Semarang FC",
-    namaLapangan: "Semarang Stadium",
-    tanggalPemesanan: "21-05-2023",
-    jamPemesanan: "19.00 - 20.00 WIB",
-    hargaSewa: "Rp 75.000/Jam",
-    totalPembayaran: "Rp 75.000"
+    namaManajemen: booking.lapangan.manager,
+    namaLapangan: booking.lapangan.title,
+    tanggalPemesanan: booking.pesanan.tanggal,
+    nomorTeleponManajemen: `https://wa.me/${booking.lapangan.nomor_ponsel}`,
+    jamPemesanan: booking.pesanan.jam,
+    hargaSewa: `Rp ${booking.lapangan.price}/Jam`,
+    totalPembayaran: `Rp ${booking.pesanan.total}`
   };
 
   const dataPembayaran = {
-    saldo: "Rp 50.000",
-    status: "Lunas",
+    saldo: booking.penyewa.saldo,
+    status: booking.pesanan.status,
     metodePembayaran: "DibookingPay",
-    totalPembayaran: "Rp 75.000",
+    totalPembayaran: `Rp ${booking.pesanan.total}`,
     peringatan: "Mohon selesaikan pembayaran secepatnya."
   };
 
-  const saldoMencukupi = true;
+  const saldoMencukupi = dataPembayaran.saldo >= 2*booking.lapangan.price;
 
-  const [isOutlineButtonHovered, setOutlineButtonHovered] = React.useState(false);
-  const [isFillButtonHovered, setFillButtonHovered] = React.useState(false);
+  const [isOutlineButtonHovered, setOutlineButtonHovered] = useState(false);
+  const [isFillButtonHovered, setFillButtonHovered] = useState(false);
 
   const buttonOutline = {
     fontWeight: 'bold',
@@ -74,13 +111,22 @@ function PaymentDetails() {
     boxShadow: '3px 3px 2px rgba(0, 0, 0, 0.2)'
   };
 
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  async function handlePayment() {
+    setIsLoading(true);
+    const response = await axios.put(`http://localhost:8000/api/pemesanan/confirmation/${bookingId}`);
+    console.log(response.data);
+    setIsLoading(false);
+    navigate("/", alert("Pembayaran berhasil dilakukan."));
+  }
 
   const handleClick = () => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
     }, 2000);
+    handlePayment();
   };
 
   return (
@@ -94,7 +140,6 @@ function PaymentDetails() {
             </p>
             <p className="mb-0" style={{ fontWeight: "700" }}>{dataPenyewa.nama}</p>
             <p className="mb-0" style={{ fontWeight: "700" }}>{dataPenyewa.nomorTelepon}</p>
-            <p className="mb-0" style={{ color: "#666666" }}>{dataPenyewa.alamat}</p>
           </div>
           <div className="mb-5">
             <p className="d-flex align-items-center mb-2" style={{ color: "#FF7315", fontWeight: "700" }}>
@@ -103,7 +148,7 @@ function PaymentDetails() {
             </p>
             <p className="mb-1">
               <span style={{ fontWeight: "700" }}>{dataPemesanan.namaManajemen}</span> |{" "}
-              <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer" style={{ display: "inline", alignItems: "center", textDecoration: "none" }}>
+              <a href={dataPemesanan.nomorTeleponManajemen} target="_blank" rel="noopener noreferrer" style={{ display: "inline", alignItems: "center", textDecoration: "none" }}>
                 <BiMessageDetail style={{ color: "#FF7315" }} />{" "}
                 <span style={{ color: "#FF7315", fontWeight: "600" }}>Chat</span>
               </a>
@@ -143,8 +188,8 @@ function PaymentDetails() {
                   <p className="mb-1" style={{ fontWeight: "700" }}>{dataPembayaran.totalPembayaran}</p>
                 </div>
                 <div className="d-flex justify-content-between">
-                  {saldoMencukupi ? (
-                    <p className="mb-0" style={{ color: "red" }}>Maaf, Saldo Anda Tidak Mencukupi!</p>
+                  {!saldoMencukupi ? (
+                    <p className="mb-0" style={{ color: "red" }}>Maaf, Saldo Anda Tidak Mencukupi, Harap Mengisi Saldo Anda Terlebih Dahulu</p>
                   ) : (
                     <p className="mb-0" style={{ color: "green" }}>Saldo mencukupi</p>
                   )}
