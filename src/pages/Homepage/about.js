@@ -8,7 +8,10 @@ import layananSewaLapangan from "../../assets/images/layanan-sewa-lapangan.png";
 import layananKelolaLapangan from "../../assets/images/layanan-kelola-lapangan.png";
 import layananCariLapangan from "../../assets/images/layanan-cari-lapangan.png";
 import phone from "../../assets/images/phone.png";
-import manDev from "../../assets/images/man-dev.jpg"
+import rifqi from "../../assets/images/rifqi.jpg"
+import fadhil from "../../assets/images/fadhil.jpg"
+import rizqi from "../../assets/images/rizqi.JPG"
+import rizki from "../../assets/images/rizki.jpg"
 
 function About() {
   const [isFillButtonHovered, setFillButtonHovered] = useState(false);
@@ -124,28 +127,28 @@ function About() {
           <h4 className="mt-5 mb-5 text-center" style={{ fontWeight: '700' }}>Tim Pengembang</h4>
           <Col md={3} className="text-center">
             <div className="images-container">
-              <Image src={manDev} width={"190px"} height={"190px"} style={{ padding: "30px" }} roundedCircle />
+              <Image src={rifqi} width={"190px"} height={"190px"} style={{ padding: "30px" }} roundedCircle />
             </div>
             <p className="mb-0 text-center align-content-center" style={{ fontWeight: '700' }}>Rifqi Afwan</p>
             <p className="mb-4 text-center align-content-center" style={{ fontSize: '14px' }}>Back-End Engineer</p>
           </Col>
           <Col md={3} className="text-center">
             <div className="images-container">
-              <Image src={manDev} width={"190px"} height={"190px"} style={{ padding: "30px" }} roundedCircle />
+              <Image src={fadhil} width={"190px"} height={"190px"} style={{ padding: "30px" }} roundedCircle />
             </div>
             <p className="mb-0 text-center align-content-center" style={{ fontWeight: '700' }}>Fadhil Abyansyah</p>
             <p className="mb-4 text-center align-content-center" style={{ fontSize: '14px' }}>Front-End Developer</p>
           </Col>
           <Col md={3} className="text-center">
             <div className="images-container">
-              <Image src={manDev} width={"190px"} height={"190px"} style={{ padding: "30px" }} roundedCircle />
+              <Image src={rizqi} width={"190px"} height={"190px"} style={{ padding: "30px" }} roundedCircle />
             </div>
             <p className="mb-0 text-center align-content-center" style={{ fontWeight: '700' }}>Rizqi Akbar</p>
             <p className="mb-4 text-center align-content-center" style={{ fontSize: '14px' }}>Front-End Developer</p>
           </Col>
           <Col md={3} className="text-center">
             <div className="images-container">
-              <Image src={manDev} width={"190px"} height={"190px"} style={{ padding: "30px" }} roundedCircle />
+              <Image src={rizki} width={"190px"} height={"190px"} style={{ padding: "30px" }} roundedCircle />
             </div>
             <p className="mb-0 text-center align-content-center" style={{ fontWeight: '700' }}>Rizki Dwi</p>
             <p className="mb-4 text-center align-content-center" style={{ fontSize: '14px' }}>UI Designer</p>
