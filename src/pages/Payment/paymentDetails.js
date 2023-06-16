@@ -122,11 +122,14 @@ function PaymentDetails() {
   }
 
   const handleClick = () => {
+    if (!saldoMencukupi) {
+      return alert("Silahkan isi saldo terlebih dahulu.");
+    }
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
+      handlePayment();
     }, 2000);
-    handlePayment();
   };
 
   return (
@@ -202,11 +205,11 @@ function PaymentDetails() {
             </p>
             <div className="d-flex flex-column flex-wrap align-content-end">
               <Form className="d-flex justify-content-center pt-2" style={{ width: "100%", maxWidth: "25rem" }}>
-                <Button style={isOutlineButtonHovered ? buttonOutlineHover : buttonOutline}
+                <Button href="/" style={{...(isOutlineButtonHovered ? buttonOutlineHover : buttonOutline), display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center"}}
                   onMouseEnter={() => setOutlineButtonHovered(true)}
                   onMouseLeave={() => setOutlineButtonHovered(false)}
                 >
-                  Batal
+                  Kembali
                 </Button>
                 <Button
                   style={isFillButtonHovered ? buttonFillHover : buttonFill}

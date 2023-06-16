@@ -7,8 +7,10 @@ import DNavbar from "../../components/Navbar/navbar";
 import Footer from "../../components/Footer/footer";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Booking() {
+  const navigate = useNavigate();
   const [Pemesanan, setPemesanan] = useState([]);
   useEffect(() => {
     const loggedIn = localStorage.getItem("token");
@@ -35,7 +37,7 @@ function Booking() {
     let statusText;
   
     switch (dataPemesanan1.status) {
-      case "Belum Dibayar":
+      case "Menunggu Pembayaran":
         statusColor = "#FF0000";
         statusText = "Belum dibayar";
         break;
@@ -43,15 +45,24 @@ function Booking() {
         statusColor = "#FFBD15";
         statusText = "Menunggu Konfirmasi";
         break;
-      case "Sudah Dipesan":
+      case "Dikonfirmasi":
         statusColor = "#43C914";
-        statusText = "Sudah Dipesan";
+        statusText = "Dikonfirmasi";
+        break;
+      case "Dibatalkan":
+        statusColor = "#000000";
+        statusText = "Dibatalkan";
+        break;
+      case "Selesai":
+        statusColor = "#FFBD15";
+        statusText = "Selesai";
         break;
       default:
         statusColor = "#000000";
         statusText = "Status Tidak Valid";
     }
     const dataPemesanan = {
+      id: dataPemesanan1.idPesanan,
       namaManajemen: dataPemesanan1.manager,
       namaLapangan: dataPemesanan1.title,
       statusPemesanan: dataPemesanan1.status,
@@ -66,11 +77,41 @@ function Booking() {
     dataPesanan.push(dataPemesanan);
   });
 
+  const formBayar = (id) => {
+    navigate(`/payment/${id}`);
+  };
+
+  const formBatal = (id) => {
+    const confirmDelete = window.confirm("Apakah Anda yakin ingin menghapus pesanan?");
+    if (confirmDelete) {
+      async function fetchData() {
+        const response = await axios.delete(`http://localhost:8000/api/pemesanan/delete/${id}`);
+        if (response.status === 200) {
+          window.location.reload();
+        } else {
+          alert("Gagal Membatalkan Pesanan");
+        }
+      }
+      fetchData();
+    }
+  };
+  
 
   return (
     <>
       <DNavbar />
       <Container className="py-5">
+      {dataPesanan.length === 0 ? (
+        <div className="d-flex justify-content-center align-items-center" style={{ height: "50vh" }}>
+          <p style={{ fontSize: "20px", fontWeight: "700" }}>Tidak ada riwayat pemesanan</p>
+        </div>
+      ) : (
+        <div>
+          <div className="d-flex justify-content-between align-items-center">
+            <h1 style={{ fontWeight: "700" }}>Riwayat Pemesanan</h1>
+          </div>
+        </div>
+      )}
       {dataPesanan.map((dataPemesanan, index) => (
         <div key={index} className="mb-5" style={{ height: "fit-content", overflow: "hidden", margin: "auto" }}>
             <div className="d-flex justify-content-between align-items-center">
@@ -92,6 +133,15 @@ function Booking() {
               <p className="mb-0" style={{ marginLeft: "10px", color: "#666666", fontSize: "12px" }}>Waktu : {dataPemesanan.tanggalPemesanan} | {dataPemesanan.jamPemesanan}</p>
               <p className="mb-0" style={{ marginLeft: "10px", color: "#666666", fontSize: "12px" }}>Harga : {dataPemesanan.hargaSewa}</p>
             </div>
+            {dataPemesanan.statusPemesanan === "Menunggu Pembayaran" ? (
+              <div className="d-flex justify-content-center align-items-center" style={{ marginLeft: "auto" }}>
+                <button onClick={() => formBayar(dataPemesanan.id)} className="btn btn-primary" style={{ fontSize: "12px", fontWeight: "700" }}>Bayar</button>
+              </div>
+            ) : (dataPemesanan.statusPemesanan === "Menunggu Konfirmasi" ? (
+              <div className="d-flex justify-content-center align-items-center" style={{ marginLeft: "auto" }}>
+                <button onClick={() => formBatal(dataPemesanan.id)} className="btn btn-danger" style={{ fontSize: "12px", fontWeight: "700" }}>Batalkan</button>
+              </div>
+            ) : null)}
           </div>
           <p className="d-flex justify-content-between align-content-center" style={{ fontWeight: "500" }}>Total Harga{" "}<span>{dataPemesanan.totalPembayaran}</span></p>
         </div>

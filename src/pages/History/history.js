@@ -35,7 +35,7 @@ function History() {
     let statusText;
   
     switch (dataPemesanan1.status) {
-      case "Belum Dibayar":
+      case "Menunggu Pembayaran":
         statusColor = "#FF0000";
         statusText = "Belum dibayar";
         break;
@@ -43,9 +43,17 @@ function History() {
         statusColor = "#FFBD15";
         statusText = "Menunggu Konfirmasi";
         break;
-      case "Sudah Dipesan":
+      case "Dikonfirmasi":
         statusColor = "#43C914";
-        statusText = "Sudah Dipesan";
+        statusText = "Dikonfirmasi";
+        break;
+      case "Dibatalkan":
+        statusColor = "#000000";
+        statusText = "Dibatalkan";
+        break;
+      case "Selesai":
+        statusColor = "#FFBD15";
+        statusText = "Selesai";
         break;
       default:
         statusColor = "#000000";

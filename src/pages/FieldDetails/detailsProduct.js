@@ -67,7 +67,7 @@ function FieldDetails() {
 
   const handleClick = () => {
     setIsLoading(true);
-    async function fetchData(userId) {
+    async function fetchData(userId, cost) {
       const resp = await axios.post(`http://localhost:8000/api/pemesanan/add`, {
         idUser: userId,
         idField: fieldId,
@@ -75,12 +75,8 @@ function FieldDetails() {
         tanggal: tanggal,
         jam: jam,
       });
-      if (resp.data.status === "success") {
-        navigate(`/payment/${resp.data.idPesanan}`);
-      }
-      else {
-        alert("Gagal memesan lapangan!");
-      }
+      console.log(resp.data);
+      navigate(`/payment/${resp.data.idPesanan}`);
     }
     async function cekLogin() {
       const loggedIn = localStorage.getItem("token");
@@ -91,7 +87,8 @@ function FieldDetails() {
           },
         });
         const userId = response.data.token.id;
-        fetchData(userId);
+        const cost = response.data.token.saldo;
+        fetchData(userId, cost);
         setTimeout(() => {
           setIsLoading(false);
         }, 2000);

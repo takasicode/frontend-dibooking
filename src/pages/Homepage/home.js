@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Card, Row, Col, Image } from 'react-bootstrap';
+import { Container, Card, Row, Col, Image, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
@@ -12,6 +12,7 @@ import DNavbar from "../../components/Navbar/navbar";
 import { images } from "./dummy";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import locations from '../../components/Lokasi/data';
 
 function HomePage() {
   const [carouselItems, setCarouselItems] = useState([]);
@@ -41,9 +42,28 @@ function HomePage() {
     fetchData();
   }, []);
 
+  const [selectedLocation, setSelectedLocation] = useState("Kota Semarang");
+
+  const handleLocationChange = (eventKey) => {
+    setSelectedLocation(eventKey);
+  };
+
   function filterField(type) {
     const temp = allProducts.filter((product) => product.typeField === type);
-    setProducts(temp);
+    setProducts(temp.slice(0,8));
+
+  }
+
+  function filterLocation(type){
+    handleLocationChange(type);
+    if(type === "Kota Semarang"){
+      setProducts(allProducts.slice(0,8));
+      setCarouselItems(allProducts.filter((product) => product.rating > 4));
+      return;
+    }
+    const temp = allProducts.filter((product) => product.location === type);
+    setProducts(temp.slice(0,8));
+    setCarouselItems(temp.filter((product) => product.rating > 4));
   }
 
   const responsive = {
@@ -72,6 +92,22 @@ function HomePage() {
   return (
     <>
       <DNavbar />
+      <div style={{ width: "100%", backgroundColor: "#2f2e41", color: "#ffffff", padding:"7px" }}>
+        <Container className="d-flex flex-row justify-content-end align-items-center mb-2 mt-2" style={{ fontSize: "12px" }}>
+          <p className="mb-0 me-2">Lokasi: </p>
+          <NavDropdown
+            title={<span>{selectedLocation}</span>}
+            id="basic-nav-dropdown"
+            align={{ xxxl: 'start' }}
+          >
+            {locations.map((location, index) => (
+              <NavDropdown.Item key={index} onClick={()=>filterLocation(location)}>
+                {location}
+              </NavDropdown.Item>
+            ))}
+          </NavDropdown>
+        </Container>
+      </div>
       <Container className="py-5">
         <DCarousel />
         <div className="multi-carousel-card mt-5" id="recommendation">

@@ -140,7 +140,7 @@ function AccountDetails() {
                   <Button style={isFillButtonHovered ? buttonFillHover : buttonFill}
                     onMouseEnter={() => setFillButtonHovered(true)}
                     onMouseLeave={() => setFillButtonHovered(false)}
-                  >Edit Profil</Button>
+                  >Delete Akun</Button>
                 </div>
               </Card.Body>
             </Card>
